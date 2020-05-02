@@ -4,7 +4,7 @@ import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 export default () => (
   <div>
     <Navbar color="light" light expand="md">
-      <NavbarBrand href="/">Lead Managers</NavbarBrand>
+      <NavbarBrand href="/">Lead Manager</NavbarBrand>
       <Nav className="mr-auto" navbar>
         <NavItem>
           <NavLink href="/components/">Components</NavLink>

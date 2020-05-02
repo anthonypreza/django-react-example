@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
-import Form from "./Form";
+import LeadForm from "./LeadForm";
 import Leads from "./Leads";
 
 export default function Dashboard() {
   return (
     <Fragment>
-      <Form />
+      <LeadForm />
       <Leads />
     </Fragment>
   );

@@ -6,14 +6,14 @@ export default () => (
     <Navbar color="light" light expand="md">
       <NavbarBrand href="/">Lead Manager</NavbarBrand>
       <Nav className="mr-auto" navbar>
-        <NavItem>
+        {/* <NavItem>
           <NavLink href="/components/">Components</NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="https://github.com/reactstrap/reactstrap">
             GitHub
           </NavLink>
-        </NavItem>
+        </NavItem> */}
       </Nav>
     </Navbar>
   </div>

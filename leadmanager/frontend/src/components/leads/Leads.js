@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { getLeads } from "../../actions/leads";
+import { getLeads, deleteLead } from "../../actions/leads";
 import { Table } from "reactstrap";
 
 const Leads = (props) => {
@@ -26,7 +26,12 @@ const Leads = (props) => {
             <td>{lead.email}</td>
             <td>{lead.message}</td>
             <td>
-              <button className="btn btn-danger btn-sm">Delete</button>
+              <button
+                onClick={() => props.deleteLead(lead.id)}
+                className="btn btn-danger btn-sm"
+              >
+                Delete
+              </button>
             </td>
           </tr>
         ))}
@@ -37,10 +42,12 @@ const Leads = (props) => {
 
 Leads.propTypes = {
   leads: PropTypes.array.isRequired,
+  getLeads: PropTypes.func.isRequired,
+  deleteLead: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   leads: state.leads.leads,
 });
 
-export default connect(mapStateToProps, { getLeads })(Leads);
+export default connect(mapStateToProps, { getLeads, deleteLead })(Leads);

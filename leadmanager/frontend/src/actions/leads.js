@@ -1,25 +1,34 @@
 import axios from "axios";
 
-import { GET_LEADS, DELETE_LEAD, ADD_LEAD, GET_ERRORS } from "./types";
-import { createMessage } from "./messages";
+import { GET_LEADS, DELETE_LEAD, ADD_LEAD } from "./types";
+import { createMessage, returnErrors } from "./messages";
+import { getHeaders } from "./headers";
 
 // GET LEADS
-export const getLeads = () => (dispatch) => {
+export const getLeads = () => (dispatch, getState) => {
+  // Get token from state
+  const token = getState().auth.token;
+  const config = getHeaders(token);
   axios
-    .get("/api/leads/")
+    .get("/api/leads/", config)
     .then((res) => {
       dispatch({
         type: GET_LEADS,
         payload: res.data,
       });
     })
-    .catch((err) => console.error(err));
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 // DELETE LEAD
-export const deleteLead = (leadId) => (dispatch) => {
+export const deleteLead = (leadId) => (dispatch, getState) => {
+  // Get token from state
+  const token = getState().auth.token;
+  const config = getHeaders(token);
   axios
-    .delete(`/api/leads/${leadId}/`)
+    .delete(`/api/leads/${leadId}/`, config)
     .then(() => {
       dispatch(createMessage({ deleteLead: "Lead Deleted" }));
       dispatch({
@@ -31,9 +40,12 @@ export const deleteLead = (leadId) => (dispatch) => {
 };
 
 // ADD LEAD
-export const addLead = (lead) => (dispatch) => {
+export const addLead = (lead) => (dispatch, getState) => {
+  // Get token from state
+  const token = getState().auth.token;
+  const config = getHeaders(token);
   axios
-    .post("/api/leads/", lead)
+    .post("/api/leads/", lead, config)
     .then((res) => {
       dispatch(createMessage({ addLead: "Lead Added" }));
       dispatch({
@@ -41,14 +53,7 @@ export const addLead = (lead) => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
-      const errors = {
-        msg: err.response.data,
-        status: err.response.status,
-      };
-      dispatch({
-        type: GET_ERRORS,
-        payload: errors,
-      });
-    });
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };

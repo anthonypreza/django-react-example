@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, Row } from "reactstrap";
 import PropTypes from "prop-types";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { addLead } from "../../actions/leads";
 
 const initalState = {
@@ -59,7 +59,7 @@ const LeadForm = (props) => {
           value={message}
         />
       </FormGroup>
-      <Button>Submit</Button>
+      <Button className="btn-success">Submit</Button>
     </Form>
   );
 };

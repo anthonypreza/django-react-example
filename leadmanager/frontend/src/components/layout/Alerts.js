@@ -27,6 +27,12 @@ const Alerts = (props) => {
       if (error.msg.message) {
         alert.error(`Message: ${error.msg.message.join()}`);
       }
+      if (error.msg.non_field_errors) {
+        alert.error(error.msg.non_field_errors.join());
+      }
+      if (error.msg.username) {
+        alert.error(error.msg.username.join());
+      }
     }
     if (message !== state.message) {
       setState({
@@ -38,6 +44,9 @@ const Alerts = (props) => {
       }
       if (message.addLead) {
         alert.success(message.addLead);
+      }
+      if (message.passwordNotMatch) {
+        alert.error(message.passwordNotMatch);
       }
     }
   }, [error, message]);
